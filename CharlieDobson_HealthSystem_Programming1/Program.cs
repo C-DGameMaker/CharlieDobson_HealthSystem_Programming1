@@ -19,10 +19,10 @@ namespace CharlieDobson_HealthSystem_Programming1
         static int level = 1;
         static void Main(string[] args)
         {
-           
-
+        
         }
 
+        //Shows the HUD
         static void ShowHUD()
         {
             HealthStatus();
@@ -36,8 +36,10 @@ namespace CharlieDobson_HealthSystem_Programming1
             Line();
         }
 
+        //Takes damage from an attack
         static void TakeDamage(int damage)
         {
+            //Checks to make sure the damage inputted isn't below zero
             if (damage < 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -46,6 +48,8 @@ namespace CharlieDobson_HealthSystem_Programming1
                 Console.WriteLine("Player cannot take a negative value of damage. Only a positive value of damage.");
                 return;
             }
+            
+            //States how much Damage the player took
             Console.Write("Player took ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(damage);
@@ -53,6 +57,7 @@ namespace CharlieDobson_HealthSystem_Programming1
             Console.Write(" points of damage.");
             AddSpace();
 
+            //Checks to see if the shield has more 
             if (shield >= damage)
             {
                 shield -= damage;
