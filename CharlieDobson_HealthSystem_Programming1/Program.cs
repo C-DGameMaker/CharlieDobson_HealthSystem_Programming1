@@ -23,7 +23,140 @@ namespace CharlieDobson_HealthSystem_Programming1
 
         }
 
-        
+        static void ShowHUD()
+        {
+            HealthStatus();
+            Console.WriteLine("HUD");
+            Line();
+            Console.WriteLine($"Lives: {lives}");
+            AddSpace();
+            Console.WriteLine($"Heath: {health} - {healthStatus}");
+            Console.WriteLine($"Shield: {shield}");
+            Console.WriteLine($"Level: {level}    EXP: {xp}");
+            Line();
+        }
+
+        static void TakeDamage(int damage)
+        {
+            if (damage < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("!ERROR!");
+                Console.ResetColor();
+                Console.WriteLine("Player cannot take a negative value of damage. Only a positive value of damage.");
+                return;
+            }
+            Console.Write("Player took ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(damage);
+            Console.ResetColor();
+            Console.Write(" points of damage.");
+            AddSpace();
+
+            if (shield >= damage)
+            {
+                shield -= damage;
+            }
+            else
+            {
+                int leftover = damage - shield;
+                shield = 0;
+                health -= leftover;
+            }
+
+        }
+
+        static void Heal(int hp)
+        {
+            if (hp < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("!ERROR!");
+                Console.ResetColor();
+                Console.WriteLine("Player cannot be healed a negative amount, only positive");
+                return;
+            }
+            health += hp;
+
+        }
+        static void RegenerateShield(int hp)
+        {
+            if (hp < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("!ERROR!");
+                Console.ResetColor();
+                Console.WriteLine("Shield cannot be healed a negative amount, only positive");
+                return;
+            }
+
+            shield += hp;
+        }
+
+        static void IncreaseXP(int exp)
+        {
+            xp += exp;
+            int levelUP = 100;
+
+            if (xp >= levelUP)
+            {
+                Console.WriteLine("You gained a level!");
+                level++;
+                xp -= levelUP;
+                levelUP += 100;
+            }
+        }
+
+        static void Revive()
+        {
+            if (lives > 0 && health <= 0)
+            {
+                lives--;
+                health = 100;
+                shield = 100;
+                level = 1;
+                xp = 0;
+            }
+        }
+
+        static void HealthStatus()
+        {
+            if (health == 100)
+            {
+                healthStatus = "Perfectly Health";
+            }
+            else if (health >= 90)
+            {
+                healthStatus = "Healthy";
+            }
+            else if (health >= 75)
+            {
+                healthStatus = "Hurt";
+            }
+            else if (health >= 50)
+            {
+                healthStatus = "Badly Hurt";
+            }
+            else if (health >= 10)
+            {
+                healthStatus = "Imminent Danger";
+            }
+            else
+            {
+                healthStatus = "Dead";
+            }
+        }
+
+        static void AddSpace()
+        {
+            Console.WriteLine(" ");
+        }
+
+        static void Line()
+        {
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~");
+        }
+
     }
 }
 
